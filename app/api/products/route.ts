@@ -4,10 +4,10 @@ export async function GET() {
   const baseUrl =
     process.env.NEXT_PUBLIC_API_URL ||
     "https://idvisionbackend-kulry6wj.b4a.run";
-  const targetUrl = `${baseUrl}/api/products/index.php`;
 
   try {
-    const res = await fetch(targetUrl, {
+    // Tembak langsung ke root URL Back4app
+    const res = await fetch(`${baseUrl}/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -21,18 +21,16 @@ export async function GET() {
       const jsonResponse = JSON.parse(responseText);
       return NextResponse.json(jsonResponse);
     } catch {
-      console.error("Non-JSON Response from backend:", responseText);
       return NextResponse.json(
         {
           status: "error",
-          message: "Gagal memproses data dari backend",
-          data: [],
+          message: "Response bukan JSON valid",
+          raw: responseText,
         },
         { status: 500 },
       );
     }
   } catch (error: any) {
-    console.error("Proxy Fetch Error:", error);
     return NextResponse.json(
       {
         status: "error",
