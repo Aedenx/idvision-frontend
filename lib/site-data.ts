@@ -1,8 +1,8 @@
-// Base URL Backend PHP Localhost Laragon
+// URL API Backend PHP (Bisa membaca dari Env atau fallback langsung ke Back4app yang aktif)
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
-  "http://localhost/idvision/backend/api";
+  "https://idvisionbackend-i7l6ougq.b4a.run/api";
 
 const FETCH_HEADERS = {
   Accept: "application/json",
@@ -70,7 +70,7 @@ export async function getProducts(params?: {
   try {
     const queryParams = new URLSearchParams();
 
-    // Mengambil parameter category/gender langsung sesuai slug database (pria, wanita, unisex, kids)
+    // Mengambil parameter category/gender langsung sesuai slug database
     const categoryParam = params?.category || params?.gender;
     if (categoryParam) {
       queryParams.append("category", categoryParam.toLowerCase().trim());
@@ -90,18 +90,22 @@ export async function getProducts(params?: {
     if (!res.ok) return { data: [] };
 
     const result = await res.json();
-    const rawData = result.data || [];
+
+    // Penanganan fleksibel struktur data JSON
+    const rawData = Array.isArray(result)
+      ? result
+      : result.data || result.products || [];
 
     // Transformasi data API PHP ke format yang dibaca oleh ProductCard & ProductsContent
     let mappedData = rawData.map((item: any) => ({
-      id: item.product_id,
-      product_id: item.product_id,
+      id: item.product_id || item.id,
+      product_id: item.product_id || item.id,
       name: item.name,
       slug: item.slug,
       sku: item.sku_base,
       description: item.description,
-      price: Number(item.base_price || 0),
-      base_price: Number(item.base_price || 0),
+      price: Number(item.base_price || item.price || 0),
+      base_price: Number(item.base_price || item.price || 0),
       discount_percent: Number(item.discount_percent || 0),
       discount_price: item.discount_price ? Number(item.discount_price) : null,
       gender: item.category_name || "Unisex",
@@ -124,11 +128,17 @@ export async function getProducts(params?: {
       if (q === "anak" || q === "anak-anak") q = "kids";
 
       mappedData = mappedData.filter((p: any) => {
-        const nameMatch = p.name.toLowerCase().includes(q);
+        const nameMatch = p.name ? p.name.toLowerCase().includes(q) : false;
         const skuMatch = p.sku ? p.sku.toLowerCase().includes(q) : false;
-        const categoryMatch = p.category_name.toLowerCase().includes(q);
-        const categorySlugMatch = p.category_slug.toLowerCase().includes(q);
-        const genderMatch = p.gender.toLowerCase().includes(q);
+        const categoryMatch = p.category_name
+          ? p.category_name.toLowerCase().includes(q)
+          : false;
+        const categorySlugMatch = p.category_slug
+          ? p.category_slug.toLowerCase().includes(q)
+          : false;
+        const genderMatch = p.gender
+          ? p.gender.toLowerCase().includes(q)
+          : false;
 
         return (
           nameMatch ||

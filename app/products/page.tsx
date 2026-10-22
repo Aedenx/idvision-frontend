@@ -18,33 +18,48 @@ function ProductsContent() {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // 1. Ambil Kategori melalui Proxy API Next.js / Dynamic Base URL
   useEffect(() => {
-    fetch("http://localhost/idvision/backend/api/categories/index.php")
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://idvisionbackend-i7l6ougq.b4a.run";
+    fetch(`${baseUrl}/api/categories/index.php`)
       .then((res) => res.json())
       .then((resData) => {
-        if (resData && resData.data) {
+        if (resData && Array.isArray(resData.data)) {
           setCategories(resData.data);
+        } else if (Array.isArray(resData)) {
+          setCategories(resData);
         }
       })
       .catch((err) => console.error("Gagal mengambil kategori:", err));
   }, []);
 
+  // 2. Ambil Produk
   useEffect(() => {
     setLoading(true);
 
-    // DIBERSIHKAN: Hanya kirim category agar tidak terjadi duplikasi query di backend
     getProducts({
       category: selectedCategory || undefined,
       sort: selectedSort,
       search: search || undefined,
-    }).then((data) => {
-      if (data && data.data) {
-        setProducts(data.data);
-      } else {
+    })
+      .then((res) => {
+        // Penanganan fleksibel untuk berbagai format respons JSON
+        if (res && Array.isArray(res.data)) {
+          setProducts(res.data);
+        } else if (Array.isArray(res)) {
+          setProducts(res);
+        } else {
+          setProducts([]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil produk:", err);
         setProducts([]);
-      }
-      setLoading(false);
-    });
+        setLoading(false);
+      });
   }, [selectedCategory, selectedSort, search]);
 
   const handleFilterChange = (key: string, value: string) => {
@@ -75,7 +90,7 @@ function ProductsContent() {
           </p>
         </div>
 
-        {/* KELOMPOK FILTER TERPADU (LIGHT & DARK DUAL MODE) */}
+        {/* KELOMPOK FILTER TERPADU */}
         <div className="flex self-start items-center rounded-xl border border-zinc-200 bg-white p-1 shadow-xs backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/90 md:self-auto">
           {/* Filter Kategori */}
           <select
