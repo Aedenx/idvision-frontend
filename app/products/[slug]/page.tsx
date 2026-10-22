@@ -41,7 +41,7 @@ export default function ProductDetailPage({
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost/idvision/backend/api/products/detail.php?slug=${resolvedParams.slug}`,
+      `https://idvisionbackend-i7l6ougq.b4a.run/api/products/detail.php?slug=${resolvedParams.slug}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -69,7 +69,7 @@ export default function ProductDetailPage({
 
           // Fetch Ulasan Pelanggan untuk produk ini
           fetch(
-            `http://localhost/idvision/backend/api/reviews/get_by_product.php?product_id=${prod.product_id}`,
+            `https://idvisionbackend-i7l6ougq.b4a.run/api/reviews/get_by_product.php?product_id=${prod.product_id}`,
           )
             .then((res) => res.json())
             .then((revData) => {

@@ -61,7 +61,7 @@ export default function ChatWidget() {
     const fetchMessages = async () => {
       try {
         const res = await fetch(
-          `http://localhost/idvision/backend/api/chat/get_messages.php?phone=${phone}`,
+          `https://idvisionbackend-i7l6ougq.b4a.run/api/chat/get_messages.php?phone=${phone}`,
         );
         const result = await res.json();
         if (result.status === "success") {
@@ -88,19 +88,22 @@ export default function ChatWidget() {
     if (!textToSend) setInputMessage("");
 
     try {
-      await fetch("http://localhost/idvision/backend/api/chat/send.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sender_type: "customer",
-          sender_name: name,
-          customer_phone: phone,
-          message: text,
-        }),
-      });
+      await fetch(
+        "https://idvisionbackend-i7l6ougq.b4a.run/api/chat/send.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sender_type: "customer",
+            sender_name: name,
+            customer_phone: phone,
+            message: text,
+          }),
+        },
+      );
 
       const res = await fetch(
-        `http://localhost/idvision/backend/api/chat/get_messages.php?phone=${phone}`,
+        `https://idvisionbackend-i7l6ougq.b4a.run/api/chat/get_messages.php?phone=${phone}`,
       );
       const result = await res.json();
       if (result.status === "success") setMessages(result.data);

@@ -41,8 +41,8 @@ export default function AuthPage() {
     setSuccessMsg("");
 
     const endpoint = isRegister
-      ? "http://localhost/idvision/backend/api/auth/register.php"
-      : "http://localhost/idvision/backend/api/auth/login.php";
+      ? "https://idvisionbackend-i7l6ougq.b4a.run/api/auth/register.php"
+      : "https://idvisionbackend-i7l6ougq.b4a.run/api/auth/login.php";
 
     try {
       const res = await fetch(endpoint, {

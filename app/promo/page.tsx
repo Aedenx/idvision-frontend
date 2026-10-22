@@ -19,7 +19,7 @@ export default function PromoPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost/idvision/backend/api/products/index.php")
+    fetch("https://idvisionbackend-i7l6ougq.b4a.run/api/products/index.php")
       .then((res) => res.json())
       .then((resData) => {
         if (resData && resData.data) {

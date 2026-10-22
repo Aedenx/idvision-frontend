@@ -110,7 +110,7 @@ export default function CheckoutPage() {
 
     try {
       const res = await fetch(
-        "http://localhost/idvision/backend/api/orders/checkout.php",
+        "https://idvisionbackend-i7l6ougq.b4a.run/api/orders/checkout.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

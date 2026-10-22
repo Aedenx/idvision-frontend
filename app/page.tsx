@@ -23,7 +23,7 @@ const getApiBaseUrl = () => {
   if (envUrl && envUrl.startsWith("http")) {
     return envUrl.replace(/\/+$/, "");
   }
-  return "http://localhost/idvision/backend/api";
+  return "https://idvisionbackend-i7l6ougq.b4a.run/api";
 };
 
 export default function HomePage() {

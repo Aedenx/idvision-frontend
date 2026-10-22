@@ -12,7 +12,7 @@ export default function HeroSlider() {
   const touchEndX = useRef(0);
 
   useEffect(() => {
-    fetch("http://localhost/idvision/backend/api/banners/index.php")
+    fetch("https://idvisionbackend-i7l6ougq.b4a.run/api/banners/index.php")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {

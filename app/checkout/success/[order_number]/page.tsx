@@ -47,7 +47,7 @@ function ReviewItemForm({
 
     try {
       const res = await fetch(
-        "http://localhost/idvision/backend/api/reviews/create.php",
+        "https://idvisionbackend-i7l6ougq.b4a.run/api/reviews/create.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -372,7 +372,7 @@ export default function CheckoutSuccessPage({
     setError(null);
     try {
       const res = await fetch(
-        `http://localhost/idvision/backend/api/orders/track.php?order_number=${orderNumber}`,
+        `https://idvisionbackend-i7l6ougq.b4a.run/api/orders/track.php?order_number=${orderNumber}`,
       );
 
       if (!res.ok) {
@@ -414,7 +414,7 @@ export default function CheckoutSuccessPage({
     setCanceling(true);
     try {
       const res = await fetch(
-        "http://localhost/idvision/backend/api/orders/cancel.php",
+        "https://idvisionbackend-i7l6ougq.b4a.run/api/orders/cancel.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

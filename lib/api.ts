@@ -3,13 +3,13 @@ const getBaseUrl = () => {
     // Saat berjalan di browser pengguna
     return (
       process.env.NEXT_PUBLIC_API_BASE_URL ||
-      "https://ikhwanvision.freedev.app/backend/api"
+      "https://idvisionbackend-i7l6ougq.b4a.run/api"
     );
   }
   // Fallback saat build time
   return (
     process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "https://ikhwanvision.freedev.app/backend/api"
+    "https://idvisionbackend-i7l6ougq.b4a.run/api"
   );
 };
 

@@ -83,7 +83,7 @@ export default function AccountPage() {
     setLoadingOrders(true);
     try {
       const res = await fetch(
-        `http://localhost/idvision/backend/api/orders/get_user_orders.php?user_id=${userId}&email=${encodeURIComponent(
+        `https://idvisionbackend-i7l6ougq.b4a.run/api/orders/get_user_orders.php?user_id=${userId}&email=${encodeURIComponent(
           email,
         )}`,
       );
