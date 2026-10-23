@@ -59,7 +59,7 @@ export default function ProductDetailPage({
             primaryImg
               ? primaryImg.startsWith("http")
                 ? primaryImg
-                : `http://localhost/idvision/backend/uploads/products/${primaryImg}`
+                : `https://idvisionbackend-i7l6ougq.b4a.run/idvision/backend/uploads/products/${primaryImg}`
               : "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
           );
 

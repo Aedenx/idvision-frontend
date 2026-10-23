@@ -37,7 +37,8 @@ const STORES = [
     phone: "+62 815-7590-6862",
     whatsapp: "6281575906862",
     hours: "Senin - Sabtu: 09.00 - 20.00 WIB",
-    image: "http://localhost/idvision/uploads/store2.jpg",
+    image:
+      "https://idvisionbackend-i7l6ougq.b4a.run/idvision/uploads/store2.jpg",
     description:
       "Outlet resmi cabang Magelang di Desa Sidomulyo, siap melayani kebutuhan kacamata gaya & outdoor.",
     mapUrl:

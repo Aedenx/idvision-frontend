@@ -83,7 +83,7 @@ export default function HomePage() {
   const getCategoryImage = (cat: any) => {
     if (cat.image_url) return cat.image_url;
     if (cat.image_path) {
-      return `http://localhost/idvision/backend/uploads/categories/${cat.image_path}`;
+      return `https://idvisionbackend-i7l6ougq.b4a.run/idvision/backend/uploads/categories/${cat.image_path}`;
     }
     return null;
   };

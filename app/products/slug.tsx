@@ -58,12 +58,16 @@ export default function ProductDetailPage({
   }
 
   const price = Number(product.price || product.base_price || 0);
+  // BAGIAN BARU (Sudah Dinamis menggunakan Environment Variable):
+  const storageUrl =
+    process.env.NEXT_PUBLIC_STORAGE_URL ||
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/storage`;
+
   const imageUrl = product.image
     ? product.image.startsWith("http")
       ? product.image
-      : `http://localhost:8000/storage/${product.image.replace(/^\//, "")}`
+      : `${storageUrl}/${product.image.replace(/^\//, "")}`
     : "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800";
-
   const handleAddToCart = () => {
     addToCart({
       id: String(product.id || product.product_id),
